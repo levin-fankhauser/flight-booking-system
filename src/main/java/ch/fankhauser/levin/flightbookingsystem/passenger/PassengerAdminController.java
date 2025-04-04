@@ -16,9 +16,9 @@ import java.util.List;
 
 @RestController
 @Validated
-public class PassengerUserController {
+public class PassengerAdminController {
 
-	@GetMapping("/api/user/passenger")
+	@GetMapping("/api/admin/passenger")
 	public ResponseEntity<List<Passenger>> getAllPassengers() {
 		// Service logic folgt
 		Passenger passenger = new Passenger();
@@ -32,25 +32,25 @@ public class PassengerUserController {
 		return ResponseEntity.ok(List.of(passenger, passenger));
 	}
 
-	@GetMapping("/api/user/passenger/{id}")
+	@GetMapping("/api/admin/passenger/{id}")
 	public ResponseEntity<Passenger> getPassengerById(@PathVariable Long id) {
 		// Service logic folgt
 		return ResponseEntity.ok(new Passenger());
 	}
 
-	@PostMapping("/api/user/passenger")
+	@PostMapping("/api/admin/passenger")
 	public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody Passenger passenger) {
 		// Service logic folgt
 		return ResponseEntity.ok(new Passenger());
 	}
 
-	@PutMapping("/api/user/passenger/{id}")
+	@PutMapping("/api/admin/passenger/{id}")
 	public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @Valid @RequestBody Passenger passenger) {
 		// Service logic folgt
 		return ResponseEntity.ok(new Passenger());
 	}
 
-	@DeleteMapping("/api/user/passenger/{id}")
+	@DeleteMapping("/api/admin/passenger/{id}")
 	public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
 		// Service logic folgt
 		return ResponseEntity.noContent().build();
