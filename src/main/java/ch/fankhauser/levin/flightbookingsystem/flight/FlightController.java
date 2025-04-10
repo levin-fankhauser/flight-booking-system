@@ -32,27 +32,27 @@ public class FlightController {
 	@GetMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<List<Flight>> getAllFlights() {
-		List<Flight> result = flightService.getAllFlights();
+		List<Flight> result = flightService.findAllFlights();
 		return ResponseEntity.ok(result);
 	}
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
-		Flight result = flightService.getFlightById(id);
+		Flight result = flightService.findFlightById(id);
 		return ResponseEntity.ok(result);
 	}
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Flight> createFlight(@Valid @RequestBody Flight flight) {
+	public ResponseEntity<Flight> createFlight(@Valid @RequestBody FlightRequestDTO flight) {
 		Flight savedFlight = flightService.createFlight(flight);
 		return ResponseEntity.ok(savedFlight);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Flight> updateFlight(@PathVariable Long id, @Valid @RequestBody Flight flight) {
+	public ResponseEntity<Flight> updateFlight(@PathVariable Long id, @Valid @RequestBody FlightRequestDTO flight) {
 		Flight savedFlight = flightService.updateFlight(id, flight);
 		return ResponseEntity.ok(savedFlight);
 	}

@@ -1,6 +1,7 @@
 package ch.fankhauser.levin.flightbookingsystem.flight;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,31 +15,30 @@ public class FlightService {
 		this.flightRepository = flightRepository;
 	}
 
-	public List<Flight> getAllFlights() {
+	public List<Flight> findAllFlights() {
 		return flightRepository.findAll();
 	}
 
-	public Flight getFlightById(Long id) {
+	public Flight findFlightById(Long id) {
 		return flightRepository.findById(id)
 				.orElseThrow(() -> new EntityNotFoundException("Flight not found with id: " + id));
 	}
 
-	public Flight createFlight(Flight flight) {
-		return flightRepository.save(flight);
+	public Flight createFlight(FlightRequestDTO flight) {
+		return flightRepository.save(mapDtoToEntity(flight));
 	}
 
-	public Flight updateFlight(Long id, Flight flight) {
+	public Flight updateFlight(Long id, FlightRequestDTO flight) {
 		return flightRepository.findById(id)
 				.map(existingFlight -> {
-					existingFlight.setAirplane(flight.getAirplane());
-					existingFlight.setOrigin(flight.getOrigin());
-					existingFlight.setDestination(flight.getDestination());
-					existingFlight.setDeparture(flight.getDeparture());
-					existingFlight.setArrival(flight.getArrival());
-					existingFlight.setCreatedBy(flight.getCreatedBy());
+					existingFlight.setAirplane(flight.airplane());
+					existingFlight.setOrigin(flight.origin());
+					existingFlight.setDestination(flight.destination());
+					existingFlight.setDeparture(flight.departure());
+					existingFlight.setArrival(flight.arrival());
 					return flightRepository.save(existingFlight);
 				})
-				.orElseGet(() -> flightRepository.save(flight));
+				.orElseGet(() -> createFlight(flight));
 	}
 
 	public void deleteFlight(Long id) {
@@ -46,5 +46,16 @@ public class FlightService {
 			throw new EntityNotFoundException("Flight not found with id " + id);
 		}
 		flightRepository.deleteById(id);
+	}
+
+	private Flight mapDtoToEntity(FlightRequestDTO flightRequestDTO) {
+		Flight flight = new Flight();
+		flight.setAirplane(flightRequestDTO.airplane());
+		flight.setOrigin(flightRequestDTO.origin());
+		flight.setDestination(flightRequestDTO.destination());
+		flight.setDeparture(flightRequestDTO.departure());
+		flight.setArrival(flightRequestDTO.arrival());
+		flight.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+		return flight;
 	}
 }
