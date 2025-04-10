@@ -17,7 +17,6 @@ public class PassengerUserService {
 
 	public List<Passenger> getAllPassengers() {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println("Context: " + uname);
 		return passengerRepository.findAllByCreatedBy(uname);
 	}
 

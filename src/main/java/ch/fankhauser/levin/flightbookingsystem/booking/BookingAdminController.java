@@ -23,42 +23,48 @@ import java.util.List;
 @Validated
 public class BookingAdminController {
 
+	private final BookingAdminService bookingAdminService;
+
+	public BookingAdminController(BookingAdminService bookingAdminService) {
+		this.bookingAdminService = bookingAdminService;
+	}
+
 	@GetMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<List<Booking>> getAllBookings() {
-		// Service logic follows
+		List<Booking> result = bookingAdminService.findAllBookings();
 
-		return ResponseEntity.ok(List.of());
+		return ResponseEntity.ok(result);
 	}
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-		// Service logic follows
+		Booking result = bookingAdminService.findBookingById(id);
 
-		return ResponseEntity.ok(new Booking());
+		return ResponseEntity.ok(result);
 	}
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Booking> createBooking(@Valid @RequestBody Booking booking) {
-		// Service logic follows
+	public ResponseEntity<Booking> createBooking(@Valid @RequestBody BookingAdminRequest booking) {
+		Booking savedBooking = bookingAdminService.createBooking(booking);
 
-		return ResponseEntity.ok(new Booking());
+		return ResponseEntity.ok(savedBooking);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @Valid @RequestBody Booking booking) {
-		// Service logic follows
+	public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @Valid @RequestBody BookingAdminRequest booking) {
+		Booking updatedBooking = bookingAdminService.updateBooking(id, booking);
 
-		return ResponseEntity.ok(new Booking());
+		return ResponseEntity.ok(updatedBooking);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
-		// Service logic follows
+		bookingAdminService.deleteBooking(id);
 
 		return ResponseEntity.noContent().build();
 	}
