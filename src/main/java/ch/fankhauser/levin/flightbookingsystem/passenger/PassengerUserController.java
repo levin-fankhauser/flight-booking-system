@@ -46,14 +46,14 @@ public class PassengerUserController {
 
 	@PostMapping
 	@RolesAllowed(Roles.User)
-	public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody UserPassengerRequest passenger) {
+	public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody PassengerRequestDTO passenger) {
 		Passenger savedPassenger = passengerUserService.createPassenger(passenger);
 		return ResponseEntity.ok(savedPassenger);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.User)
-	public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @Valid @RequestBody UserPassengerRequest passenger) {
+	public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @Valid @RequestBody PassengerRequestDTO passenger) {
 		Passenger savedPassenger = passengerUserService.updatePassenger(id, passenger);
 		return ResponseEntity.ok(savedPassenger);
 	}

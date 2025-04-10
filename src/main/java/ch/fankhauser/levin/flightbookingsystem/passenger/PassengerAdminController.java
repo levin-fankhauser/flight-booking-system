@@ -46,14 +46,15 @@ public class PassengerAdminController {
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody Passenger passenger) {
+	public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody PassengerAdminRequestDTO passenger) {
 		Passenger savedPassenger = passengerAdminService.createPassenger(passenger);
 		return ResponseEntity.ok(savedPassenger);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @Valid @RequestBody Passenger passenger) {
+	public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @Valid @RequestBody PassengerAdminRequestDTO passenger) {
+		System.out.println("PassengerAdminController.updatePassenger: " + passenger);
 		Passenger savedPassenger = passengerAdminService.updatePassenger(id, passenger);
 		return ResponseEntity.ok(savedPassenger);
 	}

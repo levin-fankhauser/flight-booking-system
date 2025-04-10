@@ -1,6 +1,6 @@
 package ch.fankhauser.levin.flightbookingsystem.passenger;
 
-public record UserPassengerRequest(
+public record PassengerRequestDTO(
 		String lastname,
 		String firstname,
 		int age,

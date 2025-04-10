@@ -26,17 +26,11 @@ public class PassengerUserService {
 				.orElseThrow(() -> new EntityNotFoundException("Passenger not found with id: " + id + " and createdBy: " + uname));
 	}
 
-	public Passenger createPassenger(UserPassengerRequest passenger) {
-		Passenger newPassenger = new Passenger();
-		newPassenger.setLastname(passenger.lastname());
-		newPassenger.setFirstname(passenger.firstname());
-		newPassenger.setAge(passenger.age());
-		newPassenger.setNationality(passenger.nationality());
-		newPassenger.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-		return passengerRepository.save(newPassenger);
+	public Passenger createPassenger(PassengerRequestDTO passenger) {
+				return passengerRepository.save(mapDtoToEntity(passenger));
 	}
 
-	public Passenger updatePassenger(Long id, UserPassengerRequest passenger) {
+	public Passenger updatePassenger(Long id, PassengerRequestDTO passenger) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return passengerRepository.findByIdAndCreatedBy(id, uname).map(existingPassenger -> {
 		existingPassenger.setLastname(passenger.lastname());
@@ -55,5 +49,15 @@ public class PassengerUserService {
 					throw new EntityNotFoundException("Passenger not found with id: " + id + " and createdBy: " + uname);
 				}
 		);
+	}
+
+	private Passenger mapDtoToEntity(PassengerRequestDTO passenger) {
+		Passenger entity = new Passenger();
+		entity.setLastname(passenger.lastname());
+		entity.setFirstname(passenger.firstname());
+		entity.setAge(passenger.age());
+		entity.setNationality(passenger.nationality());
+		entity.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+		return entity;
 	}
 }
