@@ -13,16 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/admin/passenger")
 @SecurityRequirement(name = "bearerAuth")
 @Validated
 public class PassengerAdminController {
 
-	@GetMapping("/api/admin/passenger")
+	@GetMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<List<Passenger>> getAllPassengers() {
 		// Service logic folgt
@@ -37,28 +39,28 @@ public class PassengerAdminController {
 		return ResponseEntity.ok(List.of(passenger, passenger));
 	}
 
-	@GetMapping("/api/admin/passenger/{id}")
+	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Passenger> getPassengerById(@PathVariable Long id) {
 		// Service logic folgt
 		return ResponseEntity.ok(new Passenger());
 	}
 
-	@PostMapping("/api/admin/passenger")
+	@PostMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Passenger> createPassenger(@Valid @RequestBody Passenger passenger) {
 		// Service logic folgt
 		return ResponseEntity.ok(new Passenger());
 	}
 
-	@PutMapping("/api/admin/passenger/{id}")
+	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @Valid @RequestBody Passenger passenger) {
 		// Service logic folgt
 		return ResponseEntity.ok(new Passenger());
 	}
 
-	@DeleteMapping("/api/admin/passenger/{id}")
+	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
 		// Service logic folgt

@@ -1,4 +1,4 @@
-package ch.fankhauser.levin.flightbookingsystem.flight;
+package ch.fankhauser.levin.flightbookingsystem.booking;
 
 import ch.fankhauser.levin.flightbookingsystem.security.Roles;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -18,44 +18,48 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/flight")
+@RequestMapping("/api/booking")
 @SecurityRequirement(name = "bearerAuth")
 @Validated
-public class FlightController {
+public class BookingUserController {
 
 	@GetMapping
-	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<List<Flight>> getAllFlights() {
+	@RolesAllowed(Roles.User)
+	public ResponseEntity<List<Booking>> getAllBookings() {
 		// Service logic follows
 
 		return ResponseEntity.ok(List.of());
 	}
 
 	@GetMapping("/{id}")
-	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
+	@RolesAllowed(Roles.User)
+	public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
 		// Service logic follows
-		return ResponseEntity.ok(new Flight());
+
+		return ResponseEntity.ok(new Booking());
 	}
 
 	@PostMapping
-	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Flight> createFlight(@Valid @RequestBody Flight flight) {
+	@RolesAllowed(Roles.User)
+	public ResponseEntity<Booking> createBooking(@Valid @RequestBody Booking booking) {
 		// Service logic follows
-		return ResponseEntity.ok(new Flight());
+
+		return ResponseEntity.ok(new Booking());
 	}
 
 	@PutMapping("/{id}")
-	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Flight> updateFlight(@PathVariable Long id, @Valid @RequestBody Flight flight) {
+	@RolesAllowed(Roles.User)
+	public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @Valid @RequestBody Booking booking) {
 		// Service logic follows
-		return ResponseEntity.ok(new Flight());
+
+		return ResponseEntity.ok(new Booking());
 	}
 
 	@DeleteMapping("/{id}")
-	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<Void> deleteFlight(@PathVariable Long id) {
+	@RolesAllowed(Roles.User)
+	public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
 		// Service logic follows
+
 		return ResponseEntity.noContent().build();
 	}
 }
