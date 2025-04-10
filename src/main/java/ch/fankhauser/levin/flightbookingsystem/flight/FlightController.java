@@ -23,39 +23,44 @@ import java.util.List;
 @Validated
 public class FlightController {
 
+	private final FlightService flightService;
+
+	public FlightController(FlightService flightService) {
+		this.flightService = flightService;
+	}
+
 	@GetMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<List<Flight>> getAllFlights() {
-		// Service logic follows
-
-		return ResponseEntity.ok(List.of());
+		List<Flight> result = flightService.getAllFlights();
+		return ResponseEntity.ok(result);
 	}
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Flight> getFlightById(@PathVariable Long id) {
-		// Service logic follows
-		return ResponseEntity.ok(new Flight());
+		Flight result = flightService.getFlightById(id);
+		return ResponseEntity.ok(result);
 	}
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Flight> createFlight(@Valid @RequestBody Flight flight) {
-		// Service logic follows
-		return ResponseEntity.ok(new Flight());
+		Flight savedFlight = flightService.createFlight(flight);
+		return ResponseEntity.ok(savedFlight);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Flight> updateFlight(@PathVariable Long id, @Valid @RequestBody Flight flight) {
-		// Service logic follows
-		return ResponseEntity.ok(new Flight());
+		Flight savedFlight = flightService.updateFlight(id, flight);
+		return ResponseEntity.ok(savedFlight);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Void> deleteFlight(@PathVariable Long id) {
-		// Service logic follows
+		flightService.deleteFlight(id);
 		return ResponseEntity.noContent().build();
 	}
 }
