@@ -39,7 +39,7 @@ public class Passenger {
 	@NotEmpty
 	private String nationality;
 
-	@Column(length = 255, nullable = false, updatable = false)
+	@Column(length = 255, nullable = false)
 	@Size(max = 255)
 	@NotEmpty
 	private String createdBy;

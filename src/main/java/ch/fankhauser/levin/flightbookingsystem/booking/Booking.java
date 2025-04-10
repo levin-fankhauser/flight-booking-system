@@ -58,7 +58,7 @@ public class Booking {
 	@Column(nullable = false)
 	private LocalDateTime bookingDate;
 
-	@Column(length = 255, nullable = false, updatable = false)
+	@Column(length = 255, nullable = false)
 	@Size(max = 255)
 	@NotEmpty
 	private String createdBy;
