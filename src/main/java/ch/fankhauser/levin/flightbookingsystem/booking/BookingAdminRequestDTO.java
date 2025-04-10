@@ -5,7 +5,7 @@ import ch.fankhauser.levin.flightbookingsystem.passenger.Passenger;
 
 import java.time.LocalDateTime;
 
-public record BookingRequest(
+public record BookingAdminRequestDTO(
 		Passenger passenger,
 		String origin,
 		String destination,
@@ -14,7 +14,8 @@ public record BookingRequest(
 		Flight firstFlight,
 		Flight secondFlight,
 		Flight thirdFlight,
-		LocalDateTime bookingDate
-) {
+		LocalDateTime bookingDate,
+		String createdBy
+		) {
 
 }

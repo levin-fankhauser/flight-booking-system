@@ -26,13 +26,13 @@ public class BookingUserService {
 				.orElseThrow(() -> new EntityNotFoundException("Booking not found with id: " + id + " and createdBy: " + uname));
 	}
 
-	public Booking createBooking(BookingRequest booking) {
+	public Booking createBooking(BookingRequestDTO booking) {
 		Booking newBooking = mapDtoToEntity(booking);
 		newBooking.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
 		return bookingRepository.save(newBooking);
 	}
 
-	public Booking updateBooking(Long id, BookingRequest booking) {
+	public Booking updateBooking(Long id, BookingRequestDTO booking) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return bookingRepository.findByIdAndCreatedBy(id, uname).map(existingBooking -> {
 			existingBooking.setPassenger(booking.passenger());
@@ -58,7 +58,7 @@ public class BookingUserService {
 		);
 	}
 
-	private Booking mapDtoToEntity(BookingRequest booking) {
+	private Booking mapDtoToEntity(BookingRequestDTO booking) {
 		Booking newBooking = new Booking();
 		newBooking.setPassenger(booking.passenger());
 		newBooking.setOrigin(booking.origin());

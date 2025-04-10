@@ -56,7 +56,7 @@ public class BookingUserController {
 			@ApiResponse(responseCode = "400", description = "Ungültige Eingabedaten"),
 			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
 	public ResponseEntity<Booking> createBooking(
-			@Valid @RequestBody @Parameter(description = "Details der neuen Buchung", required = true) BookingRequest booking) {
+			@Valid @RequestBody @Parameter(description = "Details der neuen Buchung", required = true) BookingRequestDTO booking) {
 		Booking savedBooking = bookingUserService.createBooking(booking);
 		return ResponseEntity.ok(savedBooking);
 	}
@@ -71,7 +71,7 @@ public class BookingUserController {
 			@ApiResponse(responseCode = "404", description = "Buchung nicht gefunden") })
 	public ResponseEntity<Booking> updateBooking(
 			@PathVariable Long id,
-			@Valid @RequestBody @Parameter(description = "Aktualisierte Buchungsdaten", required = true) BookingRequest booking) {
+			@Valid @RequestBody @Parameter(description = "Aktualisierte Buchungsdaten", required = true) BookingRequestDTO booking) {
 		Booking savedBooking = bookingUserService.updateBooking(id, booking);
 		return ResponseEntity.ok(savedBooking);
 	}

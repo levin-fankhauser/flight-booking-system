@@ -23,11 +23,11 @@ public class BookingAdminService {
 				.orElseThrow(() -> new EntityNotFoundException("Booking not found with id: " + id));
 	}
 
-	public Booking createBooking(BookingAdminRequest booking) {
+	public Booking createBooking(BookingAdminRequestDTO booking) {
 				return bookingRepository.save(mapDtoToEntity(booking));
 	}
 
-	public Booking updateBooking(Long id, BookingAdminRequest booking) {
+	public Booking updateBooking(Long id, BookingAdminRequestDTO booking) {
 		return bookingRepository.findById(id)
 				.map(existingBooking -> {
 					existingBooking.setPassenger(booking.passenger());
@@ -52,7 +52,7 @@ public class BookingAdminService {
 		bookingRepository.deleteById(id);
 	}
 
-	private Booking mapDtoToEntity(BookingAdminRequest booking) {
+	private Booking mapDtoToEntity(BookingAdminRequestDTO booking) {
 		Booking newBooking = new Booking();
 		newBooking.setPassenger(booking.passenger());
 		newBooking.setOrigin(booking.origin());
