@@ -23,38 +23,44 @@ import java.util.List;
 @Validated
 public class AirplaneController {
 
+	private final AirplaneService airplaneService;
+
+	public AirplaneController(AirplaneService airplaneService) {
+		this.airplaneService = airplaneService;
+	}
+
 	@GetMapping
 	@RolesAllowed(Roles.Admin)
-	public ResponseEntity<List<Airplane>> getAirplanes() {
-		// Service logic follows
-		return ResponseEntity.ok(List.of());
+	public ResponseEntity<List<Airplane>> getAllAirplanes() {
+		List<Airplane> result = airplaneService.getAllAirplanes();
+		return ResponseEntity.ok(result);
 	}
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Airplane> getAirplaneById(@PathVariable Long id) {
-		// Service logic follows
-		return ResponseEntity.ok(new Airplane());
+		Airplane result = airplaneService.getAirplaneById(id);
+		return ResponseEntity.ok(result);
 	}
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Airplane> createAirplane(@Valid @RequestBody Airplane airplane) {
-		// Service logic follows
-		return ResponseEntity.ok(new Airplane());
+		Airplane savedAirplane = airplaneService.createAirplane(airplane);
+		return ResponseEntity.ok(savedAirplane);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Airplane> updateAirplane(@PathVariable Long id, @Valid @RequestBody Airplane airplane) {
-		// Service logic follows
-		return ResponseEntity.ok(new Airplane());
+		Airplane savedAirplane = airplaneService.updateAirplane(id, airplane);
+		return ResponseEntity.ok(savedAirplane);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
 	public ResponseEntity<Void> deleteAirplane(@PathVariable Long id) {
-		// Service logic follows
+		airplaneService.deleteAirplane(id);
 		return ResponseEntity.noContent().build();
 	}
 }
