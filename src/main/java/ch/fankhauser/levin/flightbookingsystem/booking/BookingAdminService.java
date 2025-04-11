@@ -50,17 +50,17 @@ public class BookingAdminService {
 	}
 
 	private Booking mapDtoToEntity(BookingAdminRequestDTO booking) {
-		Booking newBooking = new Booking();
-		newBooking.setPassenger(booking.passenger());
-		newBooking.setOrigin(booking.origin());
-		newBooking.setDestination(booking.destination());
-		newBooking.setDeparture(booking.departure());
-		newBooking.setArrival(booking.arrival());
-		newBooking.setFirstFlight(booking.firstFlight());
-		newBooking.setSecondFlight(booking.secondFlight());
-		newBooking.setThirdFlight(booking.thirdFlight());
-		newBooking.setBookingDate(booking.bookingDate());
-		newBooking.setCreatedBy(booking.createdBy());
-		return newBooking;
+		Booking entity = new Booking();
+		entity.setPassenger(booking.passenger());
+		entity.setOrigin(booking.origin());
+		entity.setDestination(booking.destination());
+		entity.setDeparture(booking.departure());
+		entity.setArrival(booking.arrival());
+		entity.setFirstFlight(booking.firstFlight());
+		entity.setSecondFlight(booking.secondFlight());
+		entity.setThirdFlight(booking.thirdFlight());
+		entity.setBookingDate(booking.bookingDate());
+		entity.setCreatedBy(booking.createdBy());
+		return entity;
 	}
 }

@@ -15,12 +15,12 @@ public class BookingUserService {
 		this.bookingRepository = bookingRepository;
 	}
 
-	public List<Booking> getAllBookings() {
+	public List<Booking> findAllBookings() {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return bookingRepository.findAllByCreatedBy(uname);
 	}
 
-	public Booking getBookingById(Long id) {
+	public Booking findBookingById(Long id) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return bookingRepository.findByIdAndCreatedBy(id, uname)
 				.orElseThrow(() -> new EntityNotFoundException("Booking not found with id: " + id + " and createdBy: " + uname));
@@ -57,16 +57,16 @@ public class BookingUserService {
 	}
 
 	private Booking mapDtoToEntity(BookingRequestDTO booking) {
-		Booking newBooking = new Booking();
-		newBooking.setPassenger(booking.passenger());
-		newBooking.setOrigin(booking.origin());
-		newBooking.setDestination(booking.destination());
-		newBooking.setDeparture(booking.departure());
-		newBooking.setArrival(booking.arrival());
-		newBooking.setFirstFlight(booking.firstFlight());
-		newBooking.setSecondFlight(booking.secondFlight());
-		newBooking.setThirdFlight(booking.thirdFlight());
-		newBooking.setBookingDate(booking.bookingDate());
-		return newBooking;
+		Booking entity = new Booking();
+		entity.setPassenger(booking.passenger());
+		entity.setOrigin(booking.origin());
+		entity.setDestination(booking.destination());
+		entity.setDeparture(booking.departure());
+		entity.setArrival(booking.arrival());
+		entity.setFirstFlight(booking.firstFlight());
+		entity.setSecondFlight(booking.secondFlight());
+		entity.setThirdFlight(booking.thirdFlight());
+		entity.setBookingDate(booking.bookingDate());
+		return entity;
 	}
 }

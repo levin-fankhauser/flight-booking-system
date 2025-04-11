@@ -33,7 +33,7 @@ public class BookingUserController {
 			@ApiResponse(responseCode = "200", description = "Bookings successfully retrieved"),
 			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<List<Booking>> getAllBookings() {
-		List<Booking> result = bookingUserService.getAllBookings();
+		List<Booking> result = bookingUserService.findAllBookings();
 		return ResponseEntity.ok(result);
 	}
 
@@ -45,7 +45,7 @@ public class BookingUserController {
 			@ApiResponse(responseCode = "403", description = "Access denied"),
 			@ApiResponse(responseCode = "404", description = "Booking not found") })
 	public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
-		Booking result = bookingUserService.getBookingById(id);
+		Booking result = bookingUserService.findBookingById(id);
 		return ResponseEntity.ok(result);
 	}
 

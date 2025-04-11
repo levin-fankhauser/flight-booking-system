@@ -15,12 +15,12 @@ public class PassengerUserService {
 		this.passengerRepository = passengerRepository;
 	}
 
-	public List<Passenger> getAllPassengers() {
+	public List<Passenger> findAllPassengers() {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return passengerRepository.findAllByCreatedBy(uname);
 	}
 
-	public Passenger getPassengerById(Long id) {
+	public Passenger findPassengerById(Long id) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return passengerRepository.findByIdAndCreatedBy(id, uname)
 				.orElseThrow(() -> new EntityNotFoundException("Passenger not found with id: " + id + " and createdBy: " + uname));

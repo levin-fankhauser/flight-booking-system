@@ -27,25 +27,25 @@ class PassengerUserControllerTest {
 	@Test
 	void getAllPassengers_returnsListOfPassengers() {
 		Passenger passenger = new Passenger();
-		when(passengerUserService.getAllPassengers()).thenReturn(List.of(passenger));
+		when(passengerUserService.findAllPassengers()).thenReturn(List.of(passenger));
 
 		ResponseEntity<List<Passenger>> response = passengerUserController.getAllPassengers();
 
 		assertEquals(200, response.getStatusCodeValue());
 		assertEquals(1, response.getBody().size());
-		verify(passengerUserService).getAllPassengers();
+		verify(passengerUserService).findAllPassengers();
 	}
 
 	@Test
 	void getPassengerById_returnsPassenger() {
 		Passenger passenger = new Passenger();
-		when(passengerUserService.getPassengerById(1L)).thenReturn(passenger);
+		when(passengerUserService.findPassengerById(1L)).thenReturn(passenger);
 
 		ResponseEntity<Passenger> response = passengerUserController.getPassengerById(1L);
 
 		assertEquals(200, response.getStatusCodeValue());
 		assertEquals(passenger, response.getBody());
-		verify(passengerUserService).getPassengerById(1L);
+		verify(passengerUserService).findPassengerById(1L);
 	}
 
 	@Test

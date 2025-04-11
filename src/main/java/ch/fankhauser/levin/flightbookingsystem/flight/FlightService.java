@@ -45,14 +45,14 @@ public class FlightService {
 		flightRepository.deleteById(id);
 	}
 
-	private Flight mapDtoToEntity(FlightRequestDTO flightRequestDTO) {
-		Flight flight = new Flight();
-		flight.setAirplane(flightRequestDTO.airplane());
-		flight.setOrigin(flightRequestDTO.origin());
-		flight.setDestination(flightRequestDTO.destination());
-		flight.setDeparture(flightRequestDTO.departure());
-		flight.setArrival(flightRequestDTO.arrival());
-		flight.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-		return flight;
+	private Flight mapDtoToEntity(FlightRequestDTO flight) {
+		Flight entity = new Flight();
+		entity.setAirplane(flight.airplane());
+		entity.setOrigin(flight.origin());
+		entity.setDestination(flight.destination());
+		entity.setDeparture(flight.departure());
+		entity.setArrival(flight.arrival());
+		entity.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+		return entity;
 	}
 }

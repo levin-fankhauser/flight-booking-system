@@ -33,7 +33,7 @@ public class PassengerUserController {
 			@ApiResponse(responseCode = "200", description = "Passengers successfully retrieved"),
 			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<List<Passenger>> getAllPassengers() {
-		List<Passenger> result = passengerUserService.getAllPassengers();
+		List<Passenger> result = passengerUserService.findAllPassengers();
 		return ResponseEntity.ok(result);
 	}
 
@@ -45,7 +45,7 @@ public class PassengerUserController {
 			@ApiResponse(responseCode = "403", description = "Access denied"),
 			@ApiResponse(responseCode = "404", description = "Passenger not found") })
 	public ResponseEntity<Passenger> getPassengerById(@PathVariable Long id) {
-		Passenger result = passengerUserService.getPassengerById(id);
+		Passenger result = passengerUserService.findPassengerById(id);
 		return ResponseEntity.ok(result);
 	}
 
