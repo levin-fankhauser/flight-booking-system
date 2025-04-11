@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/admin/booking")
 @SecurityRequirement(name = "bearerAuth")
 @Validated
-@Tag(name = "Bookings (Admin)", description = "Administrative Verwaltung von Buchungen")
+@Tag(name = "Bookings (Admin)", description = "Administrative management of bookings")
 public class BookingAdminController {
 
 	private final BookingAdminService bookingAdminService;
@@ -29,9 +29,9 @@ public class BookingAdminController {
 
 	@GetMapping
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Alle Buchungen abrufen", description = "Diese Operation gibt eine Liste aller Buchungen zurück.", responses = {
-			@ApiResponse(responseCode = "200", description = "Buchungen erfolgreich abgerufen"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Retrieve all bookings", description = "This operation returns a list of all bookings.", responses = {
+			@ApiResponse(responseCode = "200", description = "Bookings successfully retrieved"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<List<Booking>> getAllBookings() {
 		List<Booking> result = bookingAdminService.findAllBookings();
 		return ResponseEntity.ok(result);
@@ -39,11 +39,11 @@ public class BookingAdminController {
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Buchung nach ID abrufen", description = "Gibt eine einzelne Buchung anhand ihrer ID zurück.", parameters = {
-			@Parameter(name = "id", description = "ID der Buchung", required = true) }, responses = {
-			@ApiResponse(responseCode = "200", description = "Buchung erfolgreich gefunden"),
-			@ApiResponse(responseCode = "404", description = "Buchung nicht gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Retrieve booking by ID", description = "Returns a single booking by its ID.", parameters = {
+			@Parameter(name = "id", description = "ID of the booking", required = true) }, responses = {
+			@ApiResponse(responseCode = "200", description = "Booking successfully found"),
+			@ApiResponse(responseCode = "404", description = "Booking not found"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
 		Booking result = bookingAdminService.findBookingById(id);
 		return ResponseEntity.ok(result);
@@ -51,38 +51,38 @@ public class BookingAdminController {
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Neue Buchung erstellen", description = "Erstellt eine neue Buchung mit den angegebenen Daten.", responses = {
-			@ApiResponse(responseCode = "200", description = "Buchung erfolgreich erstellt"),
-			@ApiResponse(responseCode = "400", description = "Ungültige Eingabedaten"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Create new booking", description = "Creates a new booking with the provided data.", responses = {
+			@ApiResponse(responseCode = "200", description = "Booking successfully created"),
+			@ApiResponse(responseCode = "400", description = "Invalid input data"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Booking> createBooking(
-			@Valid @RequestBody @Parameter(description = "Details der neuen Buchung", required = true) BookingAdminRequestDTO booking) {
+			@Valid @RequestBody @Parameter(description = "Details of the new booking", required = true) BookingAdminRequestDTO booking) {
 		Booking savedBooking = bookingAdminService.createBooking(booking);
 		return ResponseEntity.ok(savedBooking);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Buchung aktualisieren", description = "Aktualisiert eine vorhandene Buchung anhand der ID.", parameters = {
-			@Parameter(name = "id", description = "ID der zu aktualisierenden Buchung", required = true) }, responses = {
-			@ApiResponse(responseCode = "200", description = "Buchung erfolgreich aktualisiert"),
-			@ApiResponse(responseCode = "400", description = "Ungültige Eingabedaten"),
-			@ApiResponse(responseCode = "404", description = "Buchung nicht gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Update booking", description = "Updates an existing booking by its ID.", parameters = {
+			@Parameter(name = "id", description = "ID of the booking to update", required = true) }, responses = {
+			@ApiResponse(responseCode = "200", description = "Booking successfully updated"),
+			@ApiResponse(responseCode = "400", description = "Invalid input data"),
+			@ApiResponse(responseCode = "404", description = "Booking not found"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Booking> updateBooking(
 			@PathVariable Long id,
-			@Valid @RequestBody @Parameter(description = "Aktualisierte Buchungsdaten", required = true) BookingAdminRequestDTO booking) {
+			@Valid @RequestBody @Parameter(description = "Updated booking data", required = true) BookingAdminRequestDTO booking) {
 		Booking updatedBooking = bookingAdminService.updateBooking(id, booking);
 		return ResponseEntity.ok(updatedBooking);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Buchung löschen", description = "Löscht eine Buchung anhand ihrer ID.", parameters = {
-			@Parameter(name = "id", description = "ID der zu löschenden Buchung", required = true) }, responses = {
-			@ApiResponse(responseCode = "204", description = "Buchung erfolgreich gelöscht"),
-			@ApiResponse(responseCode = "404", description = "Buchung nicht gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Delete booking", description = "Deletes a booking by its ID.", parameters = {
+			@Parameter(name = "id", description = "ID of the booking to delete", required = true) }, responses = {
+			@ApiResponse(responseCode = "204", description = "Booking successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "Booking not found"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
 		bookingAdminService.deleteBooking(id);
 		return ResponseEntity.noContent().build();

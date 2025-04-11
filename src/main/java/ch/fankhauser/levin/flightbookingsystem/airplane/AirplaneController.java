@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/airplane")
 @SecurityRequirement(name = "bearerAuth")
 @Validated
-@Tag(name = "Airplane", description = "Verwaltung von Flugzeugen (Admin only)")
+@Tag(name = "Airplane", description = "Management of airplanes (Admin only)")
 public class AirplaneController {
 
 	private final AirplaneService airplaneService;
@@ -30,10 +30,10 @@ public class AirplaneController {
 
 	@GetMapping
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Alle Flugzeuge abrufen", description = "Gibt eine Liste aller Flugzeuge zurück.")
+	@Operation(summary = "Retrieve all airplanes", description = "Returns a list of all airplanes.")
 	@ApiResponses({
-			@ApiResponse(responseCode = "200", description = "Erfolgreich abgerufen"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+			@ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<List<Airplane>> getAllAirplanes() {
 		List<Airplane> result = airplaneService.findAllAirplanes();
 		return ResponseEntity.ok(result);
@@ -41,54 +41,54 @@ public class AirplaneController {
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Flugzeug nach ID abrufen", description = "Gibt ein einzelnes Flugzeug anhand der ID zurück.")
+	@Operation(summary = "Retrieve airplane by ID", description = "Returns a single airplane by its ID.")
 	@ApiResponses({
-			@ApiResponse(responseCode = "200", description = "Erfolgreich abgerufen"),
-			@ApiResponse(responseCode = "404", description = "Flugzeug nicht gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+			@ApiResponse(responseCode = "200", description = "Successfully retrieved"),
+			@ApiResponse(responseCode = "404", description = "Airplane not found"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Airplane> getAirplaneById(
-			@Parameter(description = "ID des Flugzeugs", required = true) @PathVariable Long id) {
+			@Parameter(description = "ID of the airplane", required = true) @PathVariable Long id) {
 		Airplane result = airplaneService.findAirplaneById(id);
 		return ResponseEntity.ok(result);
 	}
 
 	@PostMapping
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Neues Flugzeug erstellen", description = "Erstellt ein neues Flugzeug auf Basis der übermittelten Daten.")
+	@Operation(summary = "Create a new airplane", description = "Creates a new airplane based on the submitted data.")
 	@ApiResponses({
-			@ApiResponse(responseCode = "200", description = "Flugzeug erfolgreich erstellt"),
-			@ApiResponse(responseCode = "400", description = "Ungültige Eingabe"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+			@ApiResponse(responseCode = "200", description = "Airplane successfully created"),
+			@ApiResponse(responseCode = "400", description = "Invalid input"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Airplane> createAirplane(
-			@Parameter(description = "Daten des neuen Flugzeugs", required = true) @Valid @RequestBody AirplaneRequestDTO airplane) {
+			@Parameter(description = "Data for the new airplane", required = true) @Valid @RequestBody AirplaneRequestDTO airplane) {
 		Airplane savedAirplane = airplaneService.createAirplane(airplane);
 		return ResponseEntity.ok(savedAirplane);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Flugzeug aktualisieren", description = "Aktualisiert ein bestehendes Flugzeug anhand der ID.")
+	@Operation(summary = "Update airplane", description = "Updates an existing airplane by ID.")
 	@ApiResponses({
-			@ApiResponse(responseCode = "200", description = "Flugzeug erfolgreich aktualisiert"),
-			@ApiResponse(responseCode = "400", description = "Ungültige Eingabe"),
-			@ApiResponse(responseCode = "404", description = "Flugzeug nicht gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+			@ApiResponse(responseCode = "200", description = "Airplane successfully updated"),
+			@ApiResponse(responseCode = "400", description = "Invalid input"),
+			@ApiResponse(responseCode = "404", description = "Airplane not found"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Airplane> updateAirplane(
-			@Parameter(description = "ID des zu aktualisierenden Flugzeugs", required = true) @PathVariable Long id,
-			@Parameter(description = "Aktualisierte Daten des Flugzeugs", required = true) @Valid @RequestBody AirplaneRequestDTO airplane) {
+			@Parameter(description = "ID of the airplane to update", required = true) @PathVariable Long id,
+			@Parameter(description = "Updated airplane data", required = true) @Valid @RequestBody AirplaneRequestDTO airplane) {
 		Airplane savedAirplane = airplaneService.updateAirplane(id, airplane);
 		return ResponseEntity.ok(savedAirplane);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.Admin)
-	@Operation(summary = "Flugzeug löschen", description = "Löscht ein Flugzeug anhand der ID.")
+	@Operation(summary = "Delete airplane", description = "Deletes an airplane by ID.")
 	@ApiResponses({
-			@ApiResponse(responseCode = "204", description = "Flugzeug erfolgreich gelöscht"),
-			@ApiResponse(responseCode = "404", description = "Flugzeug nicht gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+			@ApiResponse(responseCode = "204", description = "Airplane successfully deleted"),
+			@ApiResponse(responseCode = "404", description = "Airplane not found"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Void> deleteAirplane(
-			@Parameter(description = "ID des zu löschenden Flugzeugs", required = true) @PathVariable Long id) {
+			@Parameter(description = "ID of the airplane to delete", required = true) @PathVariable Long id) {
 		airplaneService.deleteAirplane(id);
 		return ResponseEntity.noContent().build();
 	}

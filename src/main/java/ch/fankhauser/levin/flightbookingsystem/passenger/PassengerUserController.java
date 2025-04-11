@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/passenger")
 @SecurityRequirement(name = "bearerAuth")
 @Validated
-@Tag(name = "Passengers (User)", description = "Passagierverwaltung für reguläre Benutzer")
+@Tag(name = "Passengers (User)", description = "Passenger management for regular users")
 public class PassengerUserController {
 
 	private final PassengerUserService passengerUserService;
@@ -29,9 +29,9 @@ public class PassengerUserController {
 
 	@GetMapping
 	@RolesAllowed(Roles.User)
-	@Operation(summary = "Alle eigenen Passagiere abrufen", description = "Gibt alle Passagiere zurück, die dem aktuell eingeloggten Benutzer zugeordnet sind.", responses = {
-			@ApiResponse(responseCode = "200", description = "Passagiere erfolgreich abgerufen"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Retrieve all own passengers", description = "Returns all passengers associated with the currently logged-in user.", responses = {
+			@ApiResponse(responseCode = "200", description = "Passengers successfully retrieved"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<List<Passenger>> getAllPassengers() {
 		List<Passenger> result = passengerUserService.getAllPassengers();
 		return ResponseEntity.ok(result);
@@ -39,11 +39,11 @@ public class PassengerUserController {
 
 	@GetMapping("/{id}")
 	@RolesAllowed(Roles.User)
-	@Operation(summary = "Eigenen Passagier nach ID abrufen", description = "Gibt einen bestimmten Passagier zurück, sofern dieser dem aktuell eingeloggten Benutzer gehört.", parameters = {
-			@Parameter(name = "id", description = "ID des Passagiers", required = true) }, responses = {
-			@ApiResponse(responseCode = "200", description = "Passagier erfolgreich gefunden"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert"),
-			@ApiResponse(responseCode = "404", description = "Passagier nicht gefunden") })
+	@Operation(summary = "Retrieve own passenger by ID", description = "Returns a specific passenger if they belong to the currently logged-in user.", parameters = {
+			@Parameter(name = "id", description = "ID of the passenger", required = true) }, responses = {
+			@ApiResponse(responseCode = "200", description = "Passenger successfully found"),
+			@ApiResponse(responseCode = "403", description = "Access denied"),
+			@ApiResponse(responseCode = "404", description = "Passenger not found") })
 	public ResponseEntity<Passenger> getPassengerById(@PathVariable Long id) {
 		Passenger result = passengerUserService.getPassengerById(id);
 		return ResponseEntity.ok(result);
@@ -51,38 +51,38 @@ public class PassengerUserController {
 
 	@PostMapping
 	@RolesAllowed(Roles.User)
-	@Operation(summary = "Neuen Passagier erstellen", description = "Erstellt einen neuen Passagier, der dem aktuellen Benutzer zugeordnet wird.", responses = {
-			@ApiResponse(responseCode = "200", description = "Passagier erfolgreich erstellt"),
-			@ApiResponse(responseCode = "400", description = "Ungültige Eingabedaten"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert") })
+	@Operation(summary = "Create a new passenger", description = "Creates a new passenger associated with the currently logged-in user.", responses = {
+			@ApiResponse(responseCode = "200", description = "Passenger successfully created"),
+			@ApiResponse(responseCode = "400", description = "Invalid input data"),
+			@ApiResponse(responseCode = "403", description = "Access denied") })
 	public ResponseEntity<Passenger> createPassenger(
-			@Valid @RequestBody @Parameter(description = "Details des neuen Passagiers", required = true) PassengerRequestDTO passenger) {
+			@Valid @RequestBody @Parameter(description = "Details of the new passenger", required = true) PassengerRequestDTO passenger) {
 		Passenger savedPassenger = passengerUserService.createPassenger(passenger);
 		return ResponseEntity.ok(savedPassenger);
 	}
 
 	@PutMapping("/{id}")
 	@RolesAllowed(Roles.User)
-	@Operation(summary = "Eigenen Passagier aktualisieren", description = "Aktualisiert einen eigenen Passagier anhand der ID.", parameters = {
-			@Parameter(name = "id", description = "ID des Passagiers", required = true) }, responses = {
-			@ApiResponse(responseCode = "200", description = "Passagier erfolgreich aktualisiert"),
-			@ApiResponse(responseCode = "400", description = "Ungültige Eingabedaten"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert"),
-			@ApiResponse(responseCode = "404", description = "Passagier nicht gefunden") })
+	@Operation(summary = "Update own passenger", description = "Updates an own passenger based on the ID.", parameters = {
+			@Parameter(name = "id", description = "ID of the passenger", required = true) }, responses = {
+			@ApiResponse(responseCode = "200", description = "Passenger successfully updated"),
+			@ApiResponse(responseCode = "400", description = "Invalid input data"),
+			@ApiResponse(responseCode = "403", description = "Access denied"),
+			@ApiResponse(responseCode = "404", description = "Passenger not found") })
 	public ResponseEntity<Passenger> updatePassenger(
 			@PathVariable Long id,
-			@Valid @RequestBody @Parameter(description = "Aktualisierte Passagierdaten", required = true) PassengerRequestDTO passenger) {
+			@Valid @RequestBody @Parameter(description = "Updated passenger data", required = true) PassengerRequestDTO passenger) {
 		Passenger savedPassenger = passengerUserService.updatePassenger(id, passenger);
 		return ResponseEntity.ok(savedPassenger);
 	}
 
 	@DeleteMapping("/{id}")
 	@RolesAllowed(Roles.User)
-	@Operation(summary = "Eigenen Passagier löschen", description = "Löscht einen eigenen Passagier anhand seiner ID.", parameters = {
-			@Parameter(name = "id", description = "ID des Passagiers", required = true) }, responses = {
-			@ApiResponse(responseCode = "204", description = "Passagier erfolgreich gelöscht"),
-			@ApiResponse(responseCode = "403", description = "Zugriff verweigert"),
-			@ApiResponse(responseCode = "404", description = "Passagier nicht gefunden") })
+	@Operation(summary = "Delete own passenger", description = "Deletes an own passenger by their ID.", parameters = {
+			@Parameter(name = "id", description = "ID of the passenger", required = true) }, responses = {
+			@ApiResponse(responseCode = "204", description = "Passenger successfully deleted"),
+			@ApiResponse(responseCode = "403", description = "Access denied"),
+			@ApiResponse(responseCode = "404", description = "Passenger not found") })
 	public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
 		passengerUserService.deletePassenger(id);
 		return ResponseEntity.noContent().build();
