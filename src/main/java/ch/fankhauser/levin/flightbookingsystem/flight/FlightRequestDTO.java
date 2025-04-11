@@ -9,7 +9,6 @@ public record FlightRequestDTO(
 		String origin,
 		String destination,
 		LocalDateTime departure,
-		LocalDateTime arrival
-) {
+		LocalDateTime arrival) {
 
 }

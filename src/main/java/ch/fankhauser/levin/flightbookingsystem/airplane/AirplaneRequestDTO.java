@@ -5,7 +5,6 @@ public record AirplaneRequestDTO(
 		String model,
 		int constructionYear,
 		String airline,
-		int seatCapacity
-) {
+		int seatCapacity) {
 
 }

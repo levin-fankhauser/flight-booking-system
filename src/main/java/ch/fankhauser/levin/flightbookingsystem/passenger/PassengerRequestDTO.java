@@ -4,7 +4,6 @@ public record PassengerRequestDTO(
 		String lastname,
 		String firstname,
 		int age,
-		String nationality
-) {
+		String nationality) {
 
 }

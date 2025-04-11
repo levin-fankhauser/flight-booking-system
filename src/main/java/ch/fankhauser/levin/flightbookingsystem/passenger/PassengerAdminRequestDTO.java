@@ -5,7 +5,6 @@ public record PassengerAdminRequestDTO(
 		String firstname,
 		int age,
 		String nationality,
-		String createdBy
-) {
+		String createdBy) {
 
 }

@@ -14,7 +14,6 @@ public record BookingRequestDTO(
 		Flight firstFlight,
 		Flight secondFlight,
 		Flight thirdFlight,
-		LocalDateTime bookingDate
-) {
+		LocalDateTime bookingDate) {
 
 }

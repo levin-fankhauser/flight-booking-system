@@ -15,7 +15,6 @@ public record BookingAdminRequestDTO(
 		Flight secondFlight,
 		Flight thirdFlight,
 		LocalDateTime bookingDate,
-		String createdBy
-		) {
+		String createdBy) {
 
 }
