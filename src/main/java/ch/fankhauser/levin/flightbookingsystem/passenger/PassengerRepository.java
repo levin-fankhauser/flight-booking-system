@@ -8,6 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface PassengerRepository extends JpaRepository<Passenger, Long> {
+
 	List<Passenger> findAllByCreatedBy(String createdBy);
+
 	Optional<Passenger> findByIdAndCreatedBy(Long id, String createdBy);
 }

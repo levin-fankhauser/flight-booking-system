@@ -8,6 +8,8 @@ import java.util.Optional;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
+
 	List<Booking> findAllByCreatedBy(String createdBy);
+
 	Optional<Booking> findByIdAndCreatedBy(Long id, String createdBy);
 }
