@@ -5,8 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SwaggerController {
-    @RequestMapping("/")
-    public String home() {
-        return "redirect:/swagger-ui.html";
-    }
+
+	@RequestMapping("/")
+	public String home() {
+		return "redirect:/swagger-ui.html";
+	}
 }

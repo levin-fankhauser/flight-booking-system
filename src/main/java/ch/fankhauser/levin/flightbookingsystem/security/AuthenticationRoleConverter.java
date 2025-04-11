@@ -16,33 +16,31 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class AuthenticationRoleConverter implements Converter<Jwt, AbstractAuthenticationToken> {
-    private final JwtGrantedAuthoritiesConverter defaultGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 
-    public AuthenticationRoleConverter() {
-        defaultGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-        defaultGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-    }
+	private final JwtGrantedAuthoritiesConverter defaultGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
 
-    private static Collection<? extends GrantedAuthority> extractResourceRoles(final Jwt jwt) {
-        Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
-        Collection<String> resourceRoles;
-        if (resourceAccess != null) {
-            Map<String, Collection<String>> flightBookinSystem = (Map<String, Collection<String>>) resourceAccess.get("flight-booking-system");
-          if ((resourceRoles = flightBookinSystem.get("roles")) != null) {
-              return resourceRoles.stream()
-                      .map(SimpleGrantedAuthority::new)
-                      .collect(Collectors.toSet());
-          }
-        }
-        return Collections.emptySet();
-    }
+	public AuthenticationRoleConverter() {
+		defaultGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+		defaultGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+	}
 
-    @Override
-    public AbstractAuthenticationToken convert(final @NonNull Jwt source) {
-        Collection<GrantedAuthority> authorities = Stream.concat(defaultGrantedAuthoritiesConverter.convert(source)
-                                .stream(),
-                        extractResourceRoles(source).stream())
-                .collect(Collectors.toSet());
-        return new JwtAuthenticationToken(source, authorities);
-    }
+	private static Collection<? extends GrantedAuthority> extractResourceRoles(final Jwt jwt) {
+		Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
+		Collection<String> resourceRoles;
+		if (resourceAccess != null) {
+			Map<String, Collection<String>> flightBookinSystem = (Map<String, Collection<String>>) resourceAccess.get("flight-booking-system");
+			if ((resourceRoles = flightBookinSystem.get("roles")) != null) {
+				return resourceRoles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+			}
+		}
+		return Collections.emptySet();
+	}
+
+	@Override
+	public AbstractAuthenticationToken convert(final @NonNull Jwt source) {
+		Collection<GrantedAuthority> authorities = Stream.concat(
+				defaultGrantedAuthoritiesConverter.convert(source).stream(),
+				extractResourceRoles(source).stream()).collect(Collectors.toSet());
+		return new JwtAuthenticationToken(source, authorities);
+	}
 }
