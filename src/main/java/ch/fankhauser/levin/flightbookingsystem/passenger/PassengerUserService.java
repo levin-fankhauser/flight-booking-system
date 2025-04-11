@@ -27,28 +27,26 @@ public class PassengerUserService {
 	}
 
 	public Passenger createPassenger(PassengerRequestDTO passenger) {
-				return passengerRepository.save(mapDtoToEntity(passenger));
+		return passengerRepository.save(mapDtoToEntity(passenger));
 	}
 
 	public Passenger updatePassenger(Long id, PassengerRequestDTO passenger) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		return passengerRepository.findByIdAndCreatedBy(id, uname).map(existingPassenger -> {
-		existingPassenger.setLastname(passenger.lastname());
-		existingPassenger.setFirstname(passenger.firstname());
-		existingPassenger.setAge(passenger.age());
-		existingPassenger.setNationality(passenger.nationality());
-		return passengerRepository.save(existingPassenger);
+			existingPassenger.setLastname(passenger.lastname());
+			existingPassenger.setFirstname(passenger.firstname());
+			existingPassenger.setAge(passenger.age());
+			existingPassenger.setNationality(passenger.nationality());
+			return passengerRepository.save(existingPassenger);
 		}).orElseGet(() -> createPassenger(passenger));
 	}
 
 	public void deletePassenger(Long id) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		passengerRepository.findByIdAndCreatedBy(id, uname).ifPresentOrElse(
-				passengerRepository::delete,
-				() -> {
+				passengerRepository::delete, () -> {
 					throw new EntityNotFoundException("Passenger not found with id: " + id + " and createdBy: " + uname);
-				}
-		);
+				});
 	}
 
 	private Passenger mapDtoToEntity(PassengerRequestDTO passenger) {

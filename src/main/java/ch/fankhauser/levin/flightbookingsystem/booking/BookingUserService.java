@@ -51,11 +51,9 @@ public class BookingUserService {
 	public void deleteBooking(Long id) {
 		String uname = SecurityContextHolder.getContext().getAuthentication().getName();
 		bookingRepository.findByIdAndCreatedBy(id, uname).ifPresentOrElse(
-				bookingRepository::delete,
-				() -> {
+				bookingRepository::delete, () -> {
 					throw new EntityNotFoundException("Booking not found with id: " + id + " and createdBy: " + uname);
-				}
-		);
+				});
 	}
 
 	private Booking mapDtoToEntity(BookingRequestDTO booking) {

@@ -20,8 +20,7 @@ public class FlightService {
 	}
 
 	public Flight findFlightById(Long id) {
-		return flightRepository.findById(id)
-				.orElseThrow(() -> new EntityNotFoundException("Flight not found with id: " + id));
+		return flightRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Flight not found with id: " + id));
 	}
 
 	public Flight createFlight(FlightRequestDTO flight) {
@@ -29,16 +28,14 @@ public class FlightService {
 	}
 
 	public Flight updateFlight(Long id, FlightRequestDTO flight) {
-		return flightRepository.findById(id)
-				.map(existingFlight -> {
-					existingFlight.setAirplane(flight.airplane());
-					existingFlight.setOrigin(flight.origin());
-					existingFlight.setDestination(flight.destination());
-					existingFlight.setDeparture(flight.departure());
-					existingFlight.setArrival(flight.arrival());
-					return flightRepository.save(existingFlight);
-				})
-				.orElseGet(() -> createFlight(flight));
+		return flightRepository.findById(id).map(existingFlight -> {
+			existingFlight.setAirplane(flight.airplane());
+			existingFlight.setOrigin(flight.origin());
+			existingFlight.setDestination(flight.destination());
+			existingFlight.setDeparture(flight.departure());
+			existingFlight.setArrival(flight.arrival());
+			return flightRepository.save(existingFlight);
+		}).orElseGet(() -> createFlight(flight));
 	}
 
 	public void deleteFlight(Long id) {
