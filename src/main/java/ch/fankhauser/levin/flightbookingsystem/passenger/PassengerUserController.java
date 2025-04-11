@@ -82,7 +82,8 @@ public class PassengerUserController {
 			@Parameter(name = "id", description = "ID of the passenger", required = true) }, responses = {
 			@ApiResponse(responseCode = "204", description = "Passenger successfully deleted"),
 			@ApiResponse(responseCode = "403", description = "Access denied"),
-			@ApiResponse(responseCode = "404", description = "Passenger not found") })
+			@ApiResponse(responseCode = "404", description = "Passenger not found"),
+			@ApiResponse(responseCode = "400", description = "Conflict: Cannot delete passenger with existing bookings") })
 	public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
 		passengerUserService.deletePassenger(id);
 		return ResponseEntity.noContent().build();

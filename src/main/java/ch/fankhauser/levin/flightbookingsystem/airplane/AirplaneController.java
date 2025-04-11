@@ -86,7 +86,8 @@ public class AirplaneController {
 	@ApiResponses({
 			@ApiResponse(responseCode = "204", description = "Airplane successfully deleted"),
 			@ApiResponse(responseCode = "404", description = "Airplane not found"),
-			@ApiResponse(responseCode = "403", description = "Access denied") })
+			@ApiResponse(responseCode = "403", description = "Access denied"),
+			@ApiResponse(responseCode = "409", description = "Conflict: Cannot delete airplane with existing flights") })
 	public ResponseEntity<Void> deleteAirplane(
 			@Parameter(description = "ID of the airplane to delete", required = true) @PathVariable Long id) {
 		airplaneService.deleteAirplane(id);
