@@ -72,8 +72,8 @@ public class BookingAdminController {
 	public ResponseEntity<Booking> updateBooking(
 			@PathVariable Long id,
 			@Valid @RequestBody @Parameter(description = "Updated booking data", required = true) BookingAdminRequestDTO booking) {
-		Booking updatedBooking = bookingAdminService.updateBooking(id, booking);
-		return ResponseEntity.ok(updatedBooking);
+		Booking savedBooking = bookingAdminService.updateBooking(id, booking);
+		return ResponseEntity.ok(savedBooking);
 	}
 
 	@DeleteMapping("/{id}")
