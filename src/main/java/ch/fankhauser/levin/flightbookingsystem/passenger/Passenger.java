@@ -44,5 +44,4 @@ public class Passenger {
 	@NotEmpty
 	private String createdBy;
 
-
 }
