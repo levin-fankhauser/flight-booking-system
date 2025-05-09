@@ -29,7 +29,8 @@ public class SecurityConfig {
 		requestHandler.setCsrfRequestAttributeName(null);
 		http.authorizeHttpRequests(authorize -> authorize.requestMatchers(AUTH_WHITELIST).permitAll().anyRequest().authenticated())
 				.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(new AuthenticationRoleConverter())))
-				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).csrfTokenRequestHandler(requestHandler));
+				.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).csrfTokenRequestHandler(requestHandler))
+				.cors(cors -> corsConfigurer());
 		return http.build();
 	}
 
@@ -41,7 +42,7 @@ public class SecurityConfig {
 			public void addCorsMappings(@NonNull CorsRegistry registry) {
 				registry.addMapping("/**")
 						.allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH", "OPTIONS")
-						.allowedOrigins("http://localhost:4200");
+						.allowedOrigins("http://localhost:4200", "https://localhost:4200");
 			}
 		};
 	}
