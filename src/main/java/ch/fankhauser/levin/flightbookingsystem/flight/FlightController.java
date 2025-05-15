@@ -28,7 +28,7 @@ public class FlightController {
 	}
 
 	@GetMapping
-	@RolesAllowed(Roles.Admin)
+	@RolesAllowed({ Roles.Admin, Roles.User })
 	@Operation(summary = "Retrieve all flights", description = "This operation returns a list of all available flights.", responses = {
 			@ApiResponse(responseCode = "200", description = "Successfully retrieved"),
 			@ApiResponse(responseCode = "403", description = "Access denied") })
